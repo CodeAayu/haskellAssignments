@@ -89,17 +89,23 @@ getCh = do hSetEcho stdin False
            hSetEcho stdin True
            return x
 
+removeLast :: String -> String
+removeLast [] = []
+removeLast xs = init xs
+
+readLine' :: String -> IO String
+readLine' xs = do x <- getCh
+                  if x == '\DEL' then
+                      do putChar '\b'
+                         putChar ' '
+                         putChar '\b'
+                         readLine' (removeLast xs)
+                  else if x == '\n' then
+                           do putChar x
+                              return xs
+                       else 
+                           do putChar x
+                              readLine' (xs ++ [x])
+
 readLine :: IO String
-readLine  = do x <- getCh
-               if x == '\DEL' then
-                   do putChar '\b'
-                      putChar ' '
-                      putChar '\b'
-                      readLine
-               else if x == '\n' then
-                        do putChar x
-                           return []
-                    else 
-                        do putChar x
-                           str <- readLine
-                           return (x:str) 
+readLine = readLine' []

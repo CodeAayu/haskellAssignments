@@ -43,17 +43,6 @@ wins p g = any line (rows ++ cols ++ dias)
               dias = [diag g, diag (map reverse g)]
 
 
-
-wins_list :: Player -> Grid -> [[Player]]
-wins_list p g = (rows ++ cols ++ dias)
-           where
--- 3.  Alternatively, modify the final program to choose a move that attempts to take the quickest route to
---     a win, by calculating the depths of resulting game trees and selecting a move that results in a tree
---     with the smallest depth.
-              rows = g
-              cols = transpose g
-              dias = [diag g, diag (map reverse g)]
-
 diag :: Grid -> [Player]
 diag g = [g !! n !! n | n <- [0..size-1]]
 

@@ -28,7 +28,7 @@ copy :: a -> (a,a)
 copy x = (x,x)
 
 apply :: (a->b) -> a -> b
-apply func x = func x
+apply function something = function something
 
 -- 3. What are the types of the following functions?
 
